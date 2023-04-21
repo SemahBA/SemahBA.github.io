@@ -74,7 +74,6 @@
       <div class="row">
         <div class="col-lg-10 offset-md-1">
           <div class="st-post-details st-style1">
-            <h1 style="color:red"> Recon </h1>
             <h4 style="color:blue"> nmap </h4>
             <p> Starting by enumerating the open ports using nmap</p>
             <blockquote> nmap -sC -sV < IP > </blockquote>
@@ -83,75 +82,108 @@
 
             <h4 style="color:blue"> SMB Enumeration - TCP 139/445 </h4>
             
-            <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
-            <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps.</p>
-            <img class="st-zoom-in" src="../assets/img/hero-bg3.jpg" alt="blog1">
-            <h2>Collaboratively administrate empowered.</h2>
+            <p> For the SMB enumeration, i will be using 
+              <a style="color:#fec544" href="https://github.com/ShawnDEvans/smbmap" target="_blank">  smbmap </a>
+            </p>
+            <blockquote style="font-size: 16px;"> smbmap -H IP </blockquote>
+            <img class="st-zoom-in" src="../assets/img/htbmachines/active/smbmap.png" alt="activemachine_smbmap">
+            <p> From the smbmap output, we can see that we have <b> READ ACCESS </b> to Replication share.</p>
+            <h4 style="color:blue">Replication Share.</h4>
             <div class="st-post-info">
               <div class="st-post-text">
-                <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.</p>
-                <p>Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.</p>
-                <p>Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail.</p>
-                <h2>Blog video post can also added.</h2>
-                <!-- For Youtube -->
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" width="816" height="459" src="https://www.youtube.com/embed/vGOL7ZvuGMc" allowfullscreen>
-                    </iframe>
-                </div>
-                <!-- For Vimeo -->
-                <!-- <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" width="816" height="459" src="https://player.vimeo.com/video/172077385?title=0&st-byline=0&portrait=0&color=EE5A3F&autoplay=0&loop=0&wmode=transparent" allowfullscreen></iframe>
-                </div> -->
-                <p>Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
-                <blockquote>Integer accumsan arcu ligula, eget dictum augue egestas sed. Curabitur bibendum, lorem ac dapibus pellentesque, justo lectus bibendum enim.<small>by: <span>Mark Parker</span></small></blockquote>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use passage of Lorem Ipsum.</p>
-                <h2>Phosfluorescently engage worldwide?</h2>
-                <p>Proactively envisioned multimedia based expertise and cross-media growth strategies. Seamlessly visualize quality intellectual capital without superior collaboration and idea-sharing. Holistically pontificate installed base portals after maintainable products.</p>
-                <div class="st-slider st-style1">
-                  <div class="slick-container" data-autoplay="0" data-loop="1" data-speed="800" data-autoplay-timeout="1000" data-center="0" data-slides-per-view="1">
-                    <div class="slick-wrapper">
-                      <div class="slick-slide-in">
-                        <img class="st-zoom-in" src="../assets/img/hero-bg4.jpg" alt="blog1">
-                      </div>
-                      <div class="slick-slide-in">
-                        <img class="st-zoom-in" src="../assets/img/hero-bg3.jpg" alt="blog1">
-                      </div>
-                      <div class="slick-slide-in">
-                        <img class="st-zoom-in" src="../assets/img/hero-bg5.jpg" alt="blog1">
-                      </div>
-                    </div>
-                  </div><!-- .slick-container -->
-                  <div class="pagination st-style2"></div> <!-- If dont need Pagination then add class .st-hidden -->
-                  <div class="swipe-arrow st-style1 st-hidden"> <!-- If dont need navigation then add class .st-hidden -->
-                    <div class="slick-arrow-left"><i class="fa fa-angle-left"></i></div>
-                    <div class="slick-arrow-right"><i class="fa fa-angle-right"></i></div>
-                  </div>
-                </div><!-- .st-slider -->
-                <div class="st-height-b20 st-height-lg-b20"></div>
-                <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+                <p> we have <b> READ ACCESS</b> to the Replication share, we can list the shares using smbmap or any alternative tool such as 
+                  <a style="color:#fec544" href="https://www.samba.org/samba/docs/current/man-html/smbclient.1.html#:~:text=smbclient%20is%20a%20client%20that,see%20ftp(1))." target="_blank">  smbclient </a>
+                  etc ...
+                </p>
+                <p>
+                  With smbmap we can add the <span style="color:#fec544" > -R </span> flag in order to recursively enumerate the shares.
+                  <blockquote style="font-size: 16px;"> smbmap -H IP -R </blockquote>
+                </p>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/replication_share.png" alt="activemachine_smbmap">
+
+                <p>
+                Group Policy Catches my eyes. Group Policy Preferences (GPP) is a feature in Windows that allows administrators to configure settings for multiple computers in a network. When a new GPP is created, an xml file containing the configuration data is saved in the SYSVOL share. This file may contain passwords that are used by the GPP.
+
+                To protect the passwords from being accessed by unauthorized users, Microsoft uses AES encryption to encrypt the password before storing it as "cpassword" in the xml file. However, Microsoft made a mistake by publishing the encryption key on MSDN, which means that anyone with access to the key can easily decrypt the passwords.
+                
+                To address this security issue, Microsoft released a patch in 2014 that prevented administrators from putting passwords into GPP. 
+                In summary, it's important for administrators to be aware of the security risks associated with GPPs and to avoid storing passwords in them. Microsoft has issued a patch to prevent this, but it's essential to check if any previously created GPPs still contain breakable passwords.
+                </p>
+                <p>
+                    Downloading the Groups.xml, we can identify the <span style="color:#fec544"> userName and cpassword </span>
+                </p>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/groups_xml.png" alt="activemachine_groups">
+                <blockquote style="font-size: 16px;"> 
+                  userName: SVC_TGS <br> cpassword: edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ 
+                </blockquote>
+                <p>Since we mentioned before, that Microsoft shared the encryption key, we will be using gpp-decrypt tool to decrypt the password</p>
+                <blockquote style="font-size: 16px;"> gpp-decrypt edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ </blockquote>
+                <p> 
+                  The passowrd is: GPPstillStandingStrong2k18
+                </p>
+                <h4 style="color:blue">Shares Enumeration with the User SVC_TGS.</h4>
+                <p> 
+                  Since we have now the credentials of the user, we are going to use these credentials to enumerate the shares with the user and see if we have access to other shares
+                </p>
+                <blockquote style="font-size: 16px;"> smbmap -H 10.129.201.80 -d active.htb -u SVC_TGS -p GPPstillStandingStrong2k18 </blockquote>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/user_share.png" alt="activemachine_usershare">
+                <p>
+                  As shown, we have access to Users, SYSVOL, Replication, and NETLOGON.
+                </p>
+                <h4 style="color:blue">Users Share</h4>
+                <p> When we access the Users Share, we can see the following:</p>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/users_share.png" alt="activemachine_usershare">
+                <p> It is like C:\Users directory, and we can grab the user flag.</p>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/user_flag.png" alt="activemachine_userflag">
+                
+                <h4 style="color:blue">Kerberoasting</h4>
+                <p>
+                  Kerberos is a security protocol used in Windows networks to verify the identity of users trying to access a service. In 2014, a security expert named Tim Medin discovered a vulnerability in Kerberos called Kerberoasting.
+                  Basically, when you try to access a service using Kerberos, you ask the Domain Controller (DC) for permission. The DC responds with an encrypted message containing the password of the service you're trying to access. You send that message to the service, which checks your identity and decides whether to let you in.
+                  In a Kerberoasting attack, instead of sending the encrypted message to the service, the attacker tries to crack the password of the service offline. This is possible because the message contains enough information for the attacker to perform the crack.
+                  Normally, the attacker needs to have an active account on the network to start the attack, but if the DC is configured in a certain way, it's possible to do the attack without a valid account.
+                </p>
+                <p>
+                  I will be using a tool from Impacket <span style="color:#fec544"> GetUsersSPNs.py </span> to get a list of service usernames which are associated with normal user account
+                </p>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/spn.png" alt="activemachine_spn">
+                <p> 
+                  To crack the hash, I will use <a style="color:#fec544" href="https://hashcat.net/hashcat/" target="_blank">  hashcat </a>
+                </p>
+                <blockquote style="font-size: 16px;">hashcat -m 13100 -a 0 hash /usr/share/wordlists/rockyou.txt --force</blockquote>
+                <p> After few seconds, we were able to crack the hash</p>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/hashcat.png" alt="activemachine_crackhash">
+                <blockquote style="font-size: 16px;">username: administrator || password: Ticketmaster1968</blockquote>
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/cme.png" alt="activemachine_cme">
+
+                <p>
+                  We can now connect to remote host using <span style="color:#fec544">psexec</span>
+                  <blockquote style="font-size: 16px;">psexec.py active.htb/administrator:Ticketmaster1968@10.129.201.80</blockquote>
+                </p>
+                
+                <img class="st-zoom-in" src="../assets/img/htbmachines/active/admin.png" alt="activemachine_admin">
+
               </div>
               <div class="st-height-b35 st-height-lg-b35"></div>
               <div class="st-post-meta">
                 <div class="st-post-tages">
                   <h4 class="st-post-tage-title">Tags:</h4>
                   <ul class="st-post-tage-list st-mp0">
-                    <li><a href="#">App</a></li>
-                    <li><a href="#">php</a></li>
-                    <li><a href="#">web</a></li>
-                    <li><a href="#">business</a></li>
-                    <li><a href="#">agency</a></li>
-                    <li><a href="#">development</a></li>
+                    <lin> Kerberos </li>
+                    <lin> Network </li>
+                    <lin> Vulnerability Assessment </li>
+                    <lin> Active Directory </li>
+                    <lin> Outdated Software </li>
+                    <lin> Security Tools </li>
+                    <lin> Authentication </li>
+                    <lin> SMB </li>
+                    <lin> Impacket </li>
+                    <lin> Password Cracking </li>
+                    <lin> Kerberoasting </li>
+                    <lin> Default Credentials </li>
+                    <lin> Weak Permissions </li>
+                    <lin> Anonymous/Guest Access </li>
                   </ul>
-                </div>
-                <div class="st-post-share">
-                  <h4 class="st-post-share-title">Share:</h4>
-                  <div class="st-post-share-btn-list">
-                     <a href="#"><i class="fab fa-facebook-f"></i></a> 
-                     <a href="#"><i class="fab fa-twitter"></i></a> 
-                     <a href="#"><i class="fab fa-behance"></i></a> 
-                     <a href="#"><i class="fab fa-instagram"></i></a> 
-                     <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                  </div>
                 </div>
               </div>
               <div class="st-height-b60 st-height-lg-b60"></div>
@@ -162,8 +194,6 @@
             </div>
           </div>
           <div class="st-height-b60 st-height-lg-b60"></div>
-          
-            
           </div>
         </div>
       </div>

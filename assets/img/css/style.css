@@ -37,6 +37,9 @@
 /*--------------------------------------------------------------
 1. Typography
 ----------------------------------------------------------------*/
+
+
+
 body,
 html {
   color: #a9adb8;
@@ -97,7 +100,9 @@ i {
   font-style: italic; }
 
 blockquote {
-  margin: 0 15px; }
+  margin: 0 15px; 
+  font-size: 12px;
+}
 
 address {
   margin: 0 0 15px; }
@@ -892,7 +897,7 @@ hr {
 
 canvas {
   display: block;
-  vertical-align: bottom; }
+}
 
 #particles-js {
   position: absolute;
@@ -1923,7 +1928,7 @@ canvas {
       margin-top: 4px;
       color: #a9adb8;
       font-size: inherit;
-      font-size: 16px; }
+      font-size: 12px; }
       .st-post-details.st-style1 blockquote small span {
         color: #fec544; }
   .st-post-details.st-style1 .st-post-label {
@@ -2072,7 +2077,7 @@ canvas {
 
   .st-post-details.st-style1 blockquote {
     padding: 20px 20px 17px;
-    font-size: 20px; } }
+    font-size: 12px; } }
 @media screen and (max-width: 767px) {
   .st-post-details.st-style1 .st-post-meta {
     display: block; }
